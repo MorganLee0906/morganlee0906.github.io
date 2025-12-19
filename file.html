@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DuoGerman - 德文單字特訓</title>
+    <title>DuoGerman - 全方位特訓</title>
     <style>
         :root {
             --duo-green: #58cc02;
@@ -41,13 +41,6 @@
             box-sizing: border-box;
         }
 
-        .close-btn {
-            font-size: 24px;
-            color: #afafaf;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
         .progress-container {
             flex-grow: 1;
             height: 16px;
@@ -72,498 +65,181 @@
             padding: 0 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            box-sizing: border-box;
-            margin-bottom: 100px; /* Space for bottom sheet */
+            overflow-y: auto; /* Allow scrolling for small screens */
+            padding-bottom: 150px; /* Space for bottom sheet */
         }
 
         h2 {
             text-align: left;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #777;
         }
 
         .word-display {
             font-size: 2rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: #3c3c3c;
             border: 2px solid #e5e5e5;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            background: white;
         }
         
-        .word-icon { font-size: 1.5rem; }
+        /* Sections */
+        .section-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--duo-text);
+        }
 
-        /* Options Grid */
-        .options-grid {
+        /* Grid Layouts */
+        .article-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        @media (min-width: 400px) {
-            .options-grid.articles { grid-template-columns: 1fr 1fr 1fr; }
-            .options-grid.choices { grid-template-columns: 1fr 1fr; }
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
+        .meaning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
         .option-btn {
             background: white;
             border: 2px solid var(--duo-gray);
             border-bottom-width: 4px;
-            border-radius: 15px;
-            padding: 15px;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 1rem;
             color: var(--duo-text);
             cursor: pointer;
             transition: all 0.1s;
             text-align: center;
-            position: relative;
+            user-select: none;
         }
 
-        .option-btn:active {
-            transform: translateY(2px);
-            border-bottom-width: 2px;
-        }
-
-        .option-btn:hover { background-color: #f7f7f7; }
-
+        .option-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+        
+        /* Selected State */
         .option-btn.selected {
             background-color: #ddf4ff;
             border-color: var(--duo-blue);
             color: var(--duo-blue-dark);
         }
 
-        .option-btn.correct {
-            background-color: #d7ffb8;
-            border-color: var(--duo-green);
-            color: var(--duo-green-dark);
+        /* Wrong/Correct States (for feedback) */
+        .option-btn.correct-highlight {
+            background-color: #d7ffb8 !important;
+            border-color: var(--duo-green) !important;
+            color: var(--duo-green-dark) !important;
+        }
+        
+        .option-btn.wrong-highlight {
+            background-color: #ffdfe0 !important;
+            border-color: var(--duo-red) !important;
+            color: var(--duo-red-dark) !important;
         }
 
-        .option-btn.wrong {
-            background-color: #ffdfe0;
-            border-color: var(--duo-red);
-            color: var(--duo-red-dark);
-        }
-
-        /* Bottom Sheet (Feedback) */
+        /* Bottom Sheet (Footer) */
         .bottom-sheet {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px; /* Reduced padding */
+            padding: 20px;
             box-sizing: border-box;
-            border-top: 2px solid transparent;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
+            border-top: 2px solid #e5e5e5;
+            background: white;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
         }
 
-        .bottom-sheet.show { transform: translateY(0); }
-
-        .bottom-sheet.correct {
-            background-color: #d7ffb8;
-            border-color: transparent;
-            color: var(--duo-green-dark);
-        }
-
-        .bottom-sheet.wrong {
-            background-color: #ffdfe0;
-            border-color: transparent;
-            color: var(--duo-red-dark);
-        }
+        .bottom-sheet.correct { background-color: #d7ffb8; border-color: transparent; color: var(--duo-green-dark); }
+        .bottom-sheet.wrong { background-color: #ffdfe0; border-color: transparent; color: var(--duo-red-dark); }
 
         .feedback-content {
             width: 100%;
             max-width: 600px;
-            display: flex;
+            display: none; /* Hidden by default */
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
 
-        .feedback-text {
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .feedback-sub {
-            font-size: 0.9rem;
-            font-weight: normal;
-            margin-top: 5px;
-        }
-
-        .next-btn {
+        .check-btn {
             width: 100%;
             max-width: 600px;
             padding: 15px;
             border-radius: 15px;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             color: white;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-        }
-
-        .bottom-sheet.correct .next-btn {
             background-color: var(--duo-green);
             box-shadow: 0 4px 0 var(--duo-green-dark);
+            transition: background-color 0.2s;
         }
 
-        .bottom-sheet.wrong .next-btn {
+        .check-btn:disabled {
+            background-color: #e5e5e5;
+            color: #afafaf;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .bottom-sheet.wrong .check-btn {
             background-color: var(--duo-red);
             box-shadow: 0 4px 0 var(--duo-red-dark);
         }
-
-        /* Sound Icon */
-        .speaker { cursor: pointer; color: var(--duo-blue); margin-left: 10px; }
-
-        /* Article Specific Colors (optional cues) */
-        .art-der { color: #1cb0f6; font-weight: bold; }
-        .art-die { color: #ff4b4b; font-weight: bold; }
-        .art-das { color: #58cc02; font-weight: bold; }
+        
+        .bottom-sheet.correct .check-btn {
+            background-color: var(--duo-green);
+            box-shadow: 0 4px 0 var(--duo-green-dark);
+        }
 
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="close-btn" onclick="location.reload()">×</div>
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
-        <div style="font-weight: bold; color: #ff4b4b;">❤ 5</div>
     </div>
 
     <div class="game-area" id="game-area">
         </div>
 
     <div class="bottom-sheet" id="bottom-sheet">
-        <div class="feedback-content">
-            <div class="feedback-text" id="feedback-msg">
-                太棒了！
-                <span class="feedback-sub" id="feedback-detail"></span>
+        <div class="feedback-content" id="feedback-content">
+            <div class="feedback-text">
+                <div style="font-weight:bold; font-size:1.2rem;" id="feedback-title"></div>
+                <div style="font-size:0.9rem;" id="feedback-detail"></div>
             </div>
-            <div style="font-size: 40px;" id="feedback-icon">🎉</div>
+            <div style="font-size: 40px;" id="feedback-icon"></div>
         </div>
-        <button class="next-btn" onclick="nextQuestion()">繼續</button>
+        <button class="check-btn" id="check-btn" onclick="handleCheck()">檢查</button>
     </div>
 
 <script>
-    // --- Data Source (Extracted from your PDF) ---
+    // --- Data Source ---
     const vocabData = [
          // --- PAGE 1: Der ---
         { de: "Gegenstand", cn: "物件", art: "der", type: "noun" },
-        { de: "Preis", cn: "價格", art: "der", type: "noun" },
-        { de: "Bleistift", cn: "鉛筆", art: "der", type: "noun" },
-        { de: "Computer", cn: "電腦", art: "der", type: "noun" },
-        { de: "Drucker", cn: "印表機", art: "der", type: "noun" },
-        { de: "Fernseher", cn: "電視", art: "der", type: "noun" },
-        { de: "Herd", cn: "爐子", art: "der", type: "noun" },
-        { de: "Kuli", cn: "原子筆", art: "der", type: "noun" },
-        { de: "MP3-Player", cn: "MP3播放器", art: "der", type: "noun" },
-        { de: "Stuhl", cn: "椅子", art: "der", type: "noun" },
-        { de: "Tisch", cn: "桌子", art: "der", type: "noun" },
-        { de: "Wasserkocher", cn: "煮水器", art: "der", type: "noun" },
-        { de: "Käufer", cn: "買方", art: "der", type: "noun" },
-        { de: "Verkäufer", cn: "賣方", art: "der", type: "noun" },
-        { de: "Kinderwagen", cn: "嬰兒推車", art: "der", type: "noun" },
-        { de: "Kühlschrank", cn: "冰箱", art: "der", type: "noun" },
-        { de: "Staubsauger", cn: "吸塵器", art: "der", type: "noun" },
-        { de: "Kunde", cn: "顧客", art: "der", type: "noun" },
-        { de: "Schrank", cn: "櫃子", art: "der", type: "noun" },
-        { de: "Morgen", cn: "早晨", art: "der", type: "noun" },
-        { de: "Pizza-Service", cn: "披薩外送", art: "der", type: "noun" },
-        { de: "Sohn", cn: "兒子", art: "der", type: "noun" },
-        { de: "Tagesablauf", cn: "一天流程", art: "der", type: "noun" },
-        { de: "Unterricht", cn: "課程", art: "der", type: "noun" },
-        { de: "Wortakzent", cn: "重音", art: "der", type: "noun" },
-        { de: "Abend", cn: "晚上", art: "der", type: "noun" },
-        { de: "Mittag", cn: "中午", art: "der", type: "noun" },
-        
-        // --- PAGE 1: Die ---
-        { de: "Kleinanzeige", cn: "分類小廣告", art: "die", type: "noun" },
-        { de: "Lampe", cn: "燈", art: "die", type: "noun" },
-        { de: "Schere", cn: "剪刀", art: "die", type: "noun" },
-        { de: "Waschmaschine", cn: "洗衣機", art: "die", type: "noun" },
-        { de: "Wortliste", cn: "單字表", art: "die", type: "noun" },
-        { de: "Käuferin", cn: "女買方", art: "die", type: "noun" },
-        { de: "Verkäuferin", cn: "女賣方", art: "die", type: "noun" },
-        { de: "Tasche", cn: "包包", art: "die", type: "noun" },
-        { de: "Ziffer", cn: "數字", art: "die", type: "noun" },
-        { de: "Uhr", cn: "鐘/點鐘", art: "die", type: "noun" },
-        { de: "Arbeit", cn: "工作", art: "die", type: "noun" },
-        { de: "Kinderkrippe", cn: "托兒所", art: "die", type: "noun" },
-        { de: "Minute", cn: "分鐘", art: "die", type: "noun" },
-        { de: "Schule", cn: "學校", art: "die", type: "noun" },
-        { de: "Tageszeit", cn: "白天時間", art: "die", type: "noun" },
-        { de: "Tochter", cn: "女兒", art: "die", type: "noun" },
-        { de: "Zeitung", cn: "報紙", art: "die", type: "noun" },
-        { de: "Mittagspause", cn: "午休", art: "die", type: "noun" },
-        { de: "Bäckerei", cn: "麵包店", art: "die", type: "noun" },
-        { de: "Bibliothek", cn: "圖書館", art: "die", type: "noun" },
-
-        // --- PAGE 1: Das ---
-        { de: "Verkaufsgespräch", cn: "銷售話題", art: "das", type: "noun" },
-        { de: "Bügeleisen", cn: "熨斗", art: "das", type: "noun" },
-        { de: "Heft", cn: "冊子/筆記本", art: "das", type: "noun" },
-        { de: "Wörterbuch", cn: "字典", art: "das", type: "noun" },
-        { de: "Nomen", cn: "名詞", art: "das", type: "noun" },
-        { de: "Buch", cn: "書", art: "das", type: "noun" },
-        { de: "Fahrrad", cn: "腳踏車", art: "das", type: "noun" },
-        { de: "Haus", cn: "房子", art: "das", type: "noun" },
-        { de: "Jahr", cn: "年", art: "das", type: "noun" },
-        { de: "Kind", cn: "小孩", art: "das", type: "noun" },
-        { de: "Abendessen", cn: "晚餐", art: "das", type: "noun" },
-        { de: "Praktikum", cn: "實習", art: "das", type: "noun" },
-        { de: "Viertel", cn: "四分之一/一刻", art: "das", type: "noun" },
-        { de: "Brötchen", cn: "小麵包", art: "das", type: "noun" },
-        { de: "Kino", cn: "電影院", art: "das", type: "noun" },
-        { de: "Fernsehprogramm", cn: "電視節目", art: "das", type: "noun" },
-        { de: "Bier", cn: "啤酒", art: "das", pl: "-e", type: "noun" },
-        { de: "Brot", cn: "麵包", art: "das", pl: "-e", type: "noun" },
-        { de: "Fleisch", cn: "肉", art: "das", pl: "Sg.", type: "noun" },
-        { de: "Gemüse", cn: "蔬菜", art: "das", pl: "Sg.", type: "noun" },
-        { de: "Obst", cn: "水果", art: "das", pl: "Sg.", type: "noun" },
-        { de: "Kochrezept", cn: "食譜", art: "das", pl: "-e", type: "noun" },
-        { de: "Ei", cn: "蛋", art: "das", pl: "-er", type: "noun" },
-
-        // --- PAGE 2 & 3 Selection ---
-        { de: "Woche", cn: "週", art: "die", type: "noun" },
-        { de: "Banane", cn: "香蕉", art: "die", pl: "-n", type: "noun" },
-        { de: "Dienstag", cn: "星期二", art: "der", type: "noun" },
-        { de: "Ehepaar", cn: "夫妻", art: "das", pl: "-e", type: "noun" },
-        { de: "Wurst", cn: "香腸", art: "die", pl: "Würste", type: "noun" },
-        { de: "Kartoffel", cn: "馬鈴薯", art: "die", pl: "-n", type: "noun" },
-        { de: "Farbe", cn: "顏色", art: "die", pl: "-n", type: "noun" },
-        { de: "Flasche", cn: "瓶子", art: "die", pl: "-n", type: "noun" },
-        { de: "Salz", cn: "鹽", art: "das", pl: "Sg.", type: "noun" },
-        { de: "Nudel", cn: "麵", art: "die", pl: "-n", type: "noun" },
-        { de: "Pizza", cn: "披薩", art: "die", pl: "-s", type: "noun" },
-        { de: "Paprika", cn: "甜椒", art: "die", pl: "-s", type: "noun" },
-        { de: "Apfel", cn: "蘋果", art: "der", pl: "Äpfel", type: "noun" },
-        { de: "Familie", cn: "家庭", art: "die", pl: "-n", type: "noun" },
-        { de: "Käse", cn: "乳酪", art: "der", pl: "Sg.", type: "noun" },
-        { de: "Marmelade", cn: "果醬", art: "die", pl: "-n", type: "noun" },
-        { de: "Kuchen", cn: "蛋糕", art: "der", pl: "-", type: "noun" },
-        { de: "Salat", cn: "沙拉", art: "der", pl: "-e", type: "noun" },
-        { de: "Zitrone", cn: "檸檬", art: "die", pl: "-n", type: "noun" },
-        { de: "Schinken", cn: "火腿", art: "der", pl: "-", type: "noun" },
-        { de: "Zwiebel", cn: "洋蔥", art: "die", pl: "-n", type: "noun" },
-        { de: "Reis", cn: "米", art: "der", pl: "Sg.", type: "noun" },
-        { de: "Wein", cn: "葡萄酒", art: "der", pl: "-e", type: "noun" },
-        { de: "Apfelsaft", cn: "蘋果汁", art: "der", pl: "-e", type: "noun" },
-        { de: "beschreiben", cn: "描述", type: "other" },
-        { de: "billig", cn: "便宜", type: "other" },
-        { de: "teuer", cn: "貴", type: "other" },
-        { de: "kaputt", cn: "壞了", type: "other" },
-        { de: "klein", cn: "小", type: "other" },
-        { de: "neu", cn: "新", type: "other" },
-        { de: "blau", cn: "藍色", type: "other" },
-        { de: "rot", cn: "紅色", type: "other" },
-        { de: "grün", cn: "綠色", type: "other" },
-        { de: "essen", cn: "吃", type: "other" },
-        { de: "schauen", cn: "看", type: "other" },
-        { de: "kochen", cn: "煮飯", type: "other" }
-    ];
-
-    // --- Audio Synthesis (Web Audio API) ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playSound(type) {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        osc.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        if (type === 'correct') {
-            // High ping (Ding!)
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.5);
-        } else if (type === 'wrong') {
-            // Low thud (Bubu)
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
-            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-        }
-    }
-
-    // --- Game Logic ---
-    let currentQIndex = 0;
-    let shuffledVocab = [];
-    let isAnswered = false;
-
-    function shuffle(array) {
-        return array.sort(() => Math.random() - 0.5);
-    }
-
-    function initGame() {
-        shuffledVocab = shuffle([...vocabData]);
-        currentQIndex = 0;
-        loadQuestion();
-    }
-
-    function loadQuestion() {
-        isAnswered = false;
-        const item = shuffledVocab[currentQIndex];
-        const progress = (currentQIndex / shuffledVocab.length) * 100;
-        document.getElementById('progress-bar').style.width = `${progress}%`;
-        
-        // Hide Bottom Sheet
-        const sheet = document.getElementById('bottom-sheet');
-        sheet.classList.remove('show', 'correct', 'wrong');
-
-        const gameArea = document.getElementById('game-area');
-        gameArea.innerHTML = '';
-
-        // Randomly decide question type: 0 = Article, 1 = Meaning
-        // If not a noun, force Meaning type
-        let qType = Math.random() > 0.5 ? 0 : 1;
-        if (item.type !== 'noun') qType = 1;
-
-        if (qType === 0) {
-            renderArticleQuestion(item, gameArea);
-        } else {
-            renderMeaningQuestion(item, gameArea);
-        }
-    }
-
-    // --- Renderers ---
-    function renderArticleQuestion(item, container) {
-        const h2 = document.createElement('h2');
-        h2.textContent = "請選擇正確的詞性";
-        container.appendChild(h2);
-
-        const wordDisplay = document.createElement('div');
-        wordDisplay.className = 'word-display';
-        wordDisplay.innerHTML = `<span class="word-icon">📦</span> ${item.de}`;
-        container.appendChild(wordDisplay);
-
-        const grid = document.createElement('div');
-        grid.className = 'options-grid articles';
-        
-        ['der', 'die', 'das'].forEach(art => {
-            const btn = document.createElement('div');
-            btn.className = 'option-btn';
-            btn.textContent = art.charAt(0).toUpperCase() + art.slice(1);
-            btn.onclick = () => checkAnswer(art, item.art, btn, item);
-            grid.appendChild(btn);
-        });
-        container.appendChild(grid);
-    }
-
-    function renderMeaningQuestion(item, container) {
-        const h2 = document.createElement('h2');
-        h2.textContent = "選出正確的意思";
-        container.appendChild(h2);
-
-        const wordDisplay = document.createElement('div');
-        wordDisplay.className = 'word-display';
-        wordDisplay.innerHTML = `<span class="word-icon">🇩🇪</span> ${item.de}`;
-        container.appendChild(wordDisplay);
-
-        // Generate options (1 correct + 3 wrong)
-        let options = [item.cn];
-        const distractors = vocabData.filter(x => x.cn !== item.cn);
-        shuffle(distractors).slice(0, 3).forEach(d => options.push(d.cn));
-        options = shuffle(options);
-
-        const grid = document.createElement('div');
-        grid.className = 'options-grid choices';
-
-        options.forEach(opt => {
-            const btn = document.createElement('div');
-            btn.className = 'option-btn';
-            btn.textContent = opt;
-            btn.onclick = () => checkAnswer(opt, item.cn, btn, item);
-            grid.appendChild(btn);
-        });
-        container.appendChild(grid);
-    }
-
-    // --- Interaction ---
-    function checkAnswer(userChoice, correctChoice, btnElement, item) {
-        if (isAnswered) return;
-        isAnswered = true;
-
-        const sheet = document.getElementById('bottom-sheet');
-        const feedbackMsg = document.getElementById('feedback-msg');
-        const feedbackDetail = document.getElementById('feedback-detail');
-        const feedbackIcon = document.getElementById('feedback-icon');
-
-        if (userChoice === correctChoice) {
-            // Correct
-            btnElement.classList.add('correct');
-            playSound('correct');
-            sheet.className = 'bottom-sheet show correct';
-            feedbackMsg.firstChild.textContent = "太棒了！"; // Update text node
-            feedbackIcon.textContent = "🎉";
-        } else {
-            // Wrong
-            btnElement.classList.add('wrong');
-            playSound('wrong');
-            sheet.className = 'bottom-sheet show wrong';
-            feedbackMsg.firstChild.textContent = "正確答案是：";
-            feedbackIcon.textContent = "💔";
-            
-            // Highlight the correct one (if visible)
-            const allBtns = document.querySelectorAll('.option-btn');
-            allBtns.forEach(b => {
-                if (b.textContent.toLowerCase() === correctChoice.toLowerCase() || 
-                    b.textContent === correctChoice) {
-                    b.classList.add('correct'); // Show user which was right
-                }
-            });
-        }
-
-        // Detail info (Full word + Plural)
-        let detailText = "";
-        if (item.type === 'noun') {
-            detailText = `${item.art.toUpperCase()} ${item.de} = ${item.cn}`;
-            if (item.pl) detailText += ` (複數: ${item.pl})`;
-        } else {
-            detailText = `${item.de} = ${item.cn}`;
-        }
-        feedbackDetail.textContent = detailText;
-    }
-
-    function nextQuestion() {
-        currentQIndex++;
-        if (currentQIndex >= shuffledVocab.length) {
-            // End of round
-            alert("恭喜！你完成了這一輪的單字特訓！");
-            initGame();
-        } else {
-            loadQuestion();
-        }
-    }
-
-    // Start
-    initGame();
-
-</script>
-</body>
-</html>
+        { de: "Preis", cn: "
