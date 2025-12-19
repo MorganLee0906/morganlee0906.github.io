@@ -1,15 +1,569 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>檔案</title><link rel="icon" href="/favicon.ico"/><style>
-                    .iframe-container {
-                        position: relative;
-                        width: 80%;
-                        padding-bottom: 100%;
-                    }
-                    .responsive-iframe {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                    }
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuoGerman - 德文單字特訓</title>
+    <style>
+        :root {
+            --duo-green: #58cc02;
+            --duo-green-dark: #46a302;
+            --duo-red: #ff4b4b;
+            --duo-red-dark: #d42a2a;
+            --duo-blue: #1cb0f6;
+            --duo-blue-dark: #1480b3;
+            --duo-gray: #e5e5e5;
+            --duo-text: #4b4b4b;
+            --bg: #fff;
+        }
 
-                    </style><meta name="next-head-count" content="5"/><link rel="preload" href="/_next/static/css/d3df112486f97f47.css" as="style"/><link rel="stylesheet" href="/_next/static/css/d3df112486f97f47.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/_next/static/chunks/webpack-d9c4cbefc9343924.js" defer=""></script><script src="/_next/static/chunks/framework-2c16ac744b6cdea6.js" defer=""></script><script src="/_next/static/chunks/main-cb4281779d2d79ab.js" defer=""></script><script src="/_next/static/chunks/pages/_app-753213cf38d40131.js" defer=""></script><script src="/_next/static/chunks/pages/file-5ae2775f8696853d.js" defer=""></script><script src="/_next/static/1bObqqQAcWINapcjGPKdh/_buildManifest.js" defer=""></script><script src="/_next/static/1bObqqQAcWINapcjGPKdh/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><div style="display:flex;flex-direction:column;min-height:100vh"><div><nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="/">NTU ECON Database</a><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/curriculum">課程</a></li><li class="nav-item"><a class="nav-link" href="https://ntu-econ.github.io">舊版資料庫</a></li></ul><button type="button" class="btn btn-outline-success ms-auto" data-bs-toggle="modal" data-bs-target="#notifyModal">上傳檔案</button></div></div></nav><div class="modal fade" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">提醒</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body">為避免上傳頁面遭濫用，請先登入Google帳號。</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button><a href="/upload" type="button" class="btn btn-primary">前往上傳頁面</a></div></div></div></div></div><div style="flex:1"><div class="title-container" style="display:flex;justify-content:center;align-items:center;height:100px"><h2>檔案</h2></div><div class="container"><center><div class="iframe-container"><iframe class="responsive-iframe" src="https://drive.google.com/file/d/undefined/preview" allow="autoplay"></iframe></div></center></div><div class="container"><center><h6>若文件預覽未正常顯示<a href="https://drive.google.com/file/d/undefined">請點擊此處</a></h6></center></div></div><footer class="footer mt-auto py-3 bg-light"><div class="container"><h5>台大經濟資料庫</h5><p class="text-muted">本網站由台大經濟系學會學術部架設及維護，所有資料的著作權為各課程授課老師及檔案提供者所有，請勿將資料用於學習以外的用途。</p></div><div class="container d-flex justify-content-between"><div><span class="text-muted">© 2024 台大經濟系學會學術部</span></div><div><span class="text-muted">網頁設計：<a href="https://github.com/MorganLee0906">B12李承祐</a></span></div></div></footer></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/file","query":{},"buildId":"1bObqqQAcWINapcjGPKdh","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
+        body {
+            font-family: "Nunito", "Segoe UI", "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg);
+            color: var(--duo-text);
+            overflow: hidden;
+        }
+
+        /* Header & Progress */
+        .header {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            color: #afafaf;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            height: 16px;
+            background-color: var(--duo-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--duo-green);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        /* Game Area */
+        .game-area {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            margin-bottom: 100px; /* Space for bottom sheet */
+        }
+
+        h2 {
+            text-align: left;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .word-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #3c3c3c;
+            border: 2px solid #e5e5e5;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .word-icon { font-size: 1.5rem; }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (min-width: 400px) {
+            .options-grid.articles { grid-template-columns: 1fr 1fr 1fr; }
+            .options-grid.choices { grid-template-columns: 1fr 1fr; }
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid var(--duo-gray);
+            border-bottom-width: 4px;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            color: var(--duo-text);
+            cursor: pointer;
+            transition: all 0.1s;
+            text-align: center;
+            position: relative;
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+
+        .option-btn:hover { background-color: #f7f7f7; }
+
+        .option-btn.selected {
+            background-color: #ddf4ff;
+            border-color: var(--duo-blue);
+            color: var(--duo-blue-dark);
+        }
+
+        .option-btn.correct {
+            background-color: #d7ffb8;
+            border-color: var(--duo-green);
+            color: var(--duo-green-dark);
+        }
+
+        .option-btn.wrong {
+            background-color: #ffdfe0;
+            border-color: var(--duo-red);
+            color: var(--duo-red-dark);
+        }
+
+        /* Bottom Sheet (Feedback) */
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px; /* Reduced padding */
+            box-sizing: border-box;
+            border-top: 2px solid transparent;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .bottom-sheet.show { transform: translateY(0); }
+
+        .bottom-sheet.correct {
+            background-color: #d7ffb8;
+            border-color: transparent;
+            color: var(--duo-green-dark);
+        }
+
+        .bottom-sheet.wrong {
+            background-color: #ffdfe0;
+            border-color: transparent;
+            color: var(--duo-red-dark);
+        }
+
+        .feedback-content {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .feedback-text {
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feedback-sub {
+            font-size: 0.9rem;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .next-btn {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+        }
+
+        .bottom-sheet.correct .next-btn {
+            background-color: var(--duo-green);
+            box-shadow: 0 4px 0 var(--duo-green-dark);
+        }
+
+        .bottom-sheet.wrong .next-btn {
+            background-color: var(--duo-red);
+            box-shadow: 0 4px 0 var(--duo-red-dark);
+        }
+
+        /* Sound Icon */
+        .speaker { cursor: pointer; color: var(--duo-blue); margin-left: 10px; }
+
+        /* Article Specific Colors (optional cues) */
+        .art-der { color: #1cb0f6; font-weight: bold; }
+        .art-die { color: #ff4b4b; font-weight: bold; }
+        .art-das { color: #58cc02; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="close-btn" onclick="location.reload()">×</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div style="font-weight: bold; color: #ff4b4b;">❤ 5</div>
+    </div>
+
+    <div class="game-area" id="game-area">
+        </div>
+
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="feedback-content">
+            <div class="feedback-text" id="feedback-msg">
+                太棒了！
+                <span class="feedback-sub" id="feedback-detail"></span>
+            </div>
+            <div style="font-size: 40px;" id="feedback-icon">🎉</div>
+        </div>
+        <button class="next-btn" onclick="nextQuestion()">繼續</button>
+    </div>
+
+<script>
+    // --- Data Source (Extracted from your PDF) ---
+    const vocabData = [
+         // --- PAGE 1: Der ---
+        { de: "Gegenstand", cn: "物件", art: "der", type: "noun" },
+        { de: "Preis", cn: "價格", art: "der", type: "noun" },
+        { de: "Bleistift", cn: "鉛筆", art: "der", type: "noun" },
+        { de: "Computer", cn: "電腦", art: "der", type: "noun" },
+        { de: "Drucker", cn: "印表機", art: "der", type: "noun" },
+        { de: "Fernseher", cn: "電視", art: "der", type: "noun" },
+        { de: "Herd", cn: "爐子", art: "der", type: "noun" },
+        { de: "Kuli", cn: "原子筆", art: "der", type: "noun" },
+        { de: "MP3-Player", cn: "MP3播放器", art: "der", type: "noun" },
+        { de: "Stuhl", cn: "椅子", art: "der", type: "noun" },
+        { de: "Tisch", cn: "桌子", art: "der", type: "noun" },
+        { de: "Wasserkocher", cn: "煮水器", art: "der", type: "noun" },
+        { de: "Käufer", cn: "買方", art: "der", type: "noun" },
+        { de: "Verkäufer", cn: "賣方", art: "der", type: "noun" },
+        { de: "Kinderwagen", cn: "嬰兒推車", art: "der", type: "noun" },
+        { de: "Kühlschrank", cn: "冰箱", art: "der", type: "noun" },
+        { de: "Staubsauger", cn: "吸塵器", art: "der", type: "noun" },
+        { de: "Kunde", cn: "顧客", art: "der", type: "noun" },
+        { de: "Schrank", cn: "櫃子", art: "der", type: "noun" },
+        { de: "Morgen", cn: "早晨", art: "der", type: "noun" },
+        { de: "Pizza-Service", cn: "披薩外送", art: "der", type: "noun" },
+        { de: "Sohn", cn: "兒子", art: "der", type: "noun" },
+        { de: "Tagesablauf", cn: "一天流程", art: "der", type: "noun" },
+        { de: "Unterricht", cn: "課程", art: "der", type: "noun" },
+        { de: "Wortakzent", cn: "重音", art: "der", type: "noun" },
+        { de: "Abend", cn: "晚上", art: "der", type: "noun" },
+        { de: "Mittag", cn: "中午", art: "der", type: "noun" },
+        
+        // --- PAGE 1: Die ---
+        { de: "Kleinanzeige", cn: "分類小廣告", art: "die", type: "noun" },
+        { de: "Lampe", cn: "燈", art: "die", type: "noun" },
+        { de: "Schere", cn: "剪刀", art: "die", type: "noun" },
+        { de: "Waschmaschine", cn: "洗衣機", art: "die", type: "noun" },
+        { de: "Wortliste", cn: "單字表", art: "die", type: "noun" },
+        { de: "Käuferin", cn: "女買方", art: "die", type: "noun" },
+        { de: "Verkäuferin", cn: "女賣方", art: "die", type: "noun" },
+        { de: "Tasche", cn: "包包", art: "die", type: "noun" },
+        { de: "Ziffer", cn: "數字", art: "die", type: "noun" },
+        { de: "Uhr", cn: "鐘/點鐘", art: "die", type: "noun" },
+        { de: "Arbeit", cn: "工作", art: "die", type: "noun" },
+        { de: "Kinderkrippe", cn: "托兒所", art: "die", type: "noun" },
+        { de: "Minute", cn: "分鐘", art: "die", type: "noun" },
+        { de: "Schule", cn: "學校", art: "die", type: "noun" },
+        { de: "Tageszeit", cn: "白天時間", art: "die", type: "noun" },
+        { de: "Tochter", cn: "女兒", art: "die", type: "noun" },
+        { de: "Zeitung", cn: "報紙", art: "die", type: "noun" },
+        { de: "Mittagspause", cn: "午休", art: "die", type: "noun" },
+        { de: "Bäckerei", cn: "麵包店", art: "die", type: "noun" },
+        { de: "Bibliothek", cn: "圖書館", art: "die", type: "noun" },
+
+        // --- PAGE 1: Das ---
+        { de: "Verkaufsgespräch", cn: "銷售話題", art: "das", type: "noun" },
+        { de: "Bügeleisen", cn: "熨斗", art: "das", type: "noun" },
+        { de: "Heft", cn: "冊子/筆記本", art: "das", type: "noun" },
+        { de: "Wörterbuch", cn: "字典", art: "das", type: "noun" },
+        { de: "Nomen", cn: "名詞", art: "das", type: "noun" },
+        { de: "Buch", cn: "書", art: "das", type: "noun" },
+        { de: "Fahrrad", cn: "腳踏車", art: "das", type: "noun" },
+        { de: "Haus", cn: "房子", art: "das", type: "noun" },
+        { de: "Jahr", cn: "年", art: "das", type: "noun" },
+        { de: "Kind", cn: "小孩", art: "das", type: "noun" },
+        { de: "Abendessen", cn: "晚餐", art: "das", type: "noun" },
+        { de: "Praktikum", cn: "實習", art: "das", type: "noun" },
+        { de: "Viertel", cn: "四分之一/一刻", art: "das", type: "noun" },
+        { de: "Brötchen", cn: "小麵包", art: "das", type: "noun" },
+        { de: "Kino", cn: "電影院", art: "das", type: "noun" },
+        { de: "Fernsehprogramm", cn: "電視節目", art: "das", type: "noun" },
+        { de: "Bier", cn: "啤酒", art: "das", pl: "-e", type: "noun" },
+        { de: "Brot", cn: "麵包", art: "das", pl: "-e", type: "noun" },
+        { de: "Fleisch", cn: "肉", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Gemüse", cn: "蔬菜", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Obst", cn: "水果", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Kochrezept", cn: "食譜", art: "das", pl: "-e", type: "noun" },
+        { de: "Ei", cn: "蛋", art: "das", pl: "-er", type: "noun" },
+
+        // --- PAGE 2 & 3 Selection ---
+        { de: "Woche", cn: "週", art: "die", type: "noun" },
+        { de: "Banane", cn: "香蕉", art: "die", pl: "-n", type: "noun" },
+        { de: "Dienstag", cn: "星期二", art: "der", type: "noun" },
+        { de: "Ehepaar", cn: "夫妻", art: "das", pl: "-e", type: "noun" },
+        { de: "Wurst", cn: "香腸", art: "die", pl: "Würste", type: "noun" },
+        { de: "Kartoffel", cn: "馬鈴薯", art: "die", pl: "-n", type: "noun" },
+        { de: "Farbe", cn: "顏色", art: "die", pl: "-n", type: "noun" },
+        { de: "Flasche", cn: "瓶子", art: "die", pl: "-n", type: "noun" },
+        { de: "Salz", cn: "鹽", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Nudel", cn: "麵", art: "die", pl: "-n", type: "noun" },
+        { de: "Pizza", cn: "披薩", art: "die", pl: "-s", type: "noun" },
+        { de: "Paprika", cn: "甜椒", art: "die", pl: "-s", type: "noun" },
+        { de: "Apfel", cn: "蘋果", art: "der", pl: "Äpfel", type: "noun" },
+        { de: "Familie", cn: "家庭", art: "die", pl: "-n", type: "noun" },
+        { de: "Käse", cn: "乳酪", art: "der", pl: "Sg.", type: "noun" },
+        { de: "Marmelade", cn: "果醬", art: "die", pl: "-n", type: "noun" },
+        { de: "Kuchen", cn: "蛋糕", art: "der", pl: "-", type: "noun" },
+        { de: "Salat", cn: "沙拉", art: "der", pl: "-e", type: "noun" },
+        { de: "Zitrone", cn: "檸檬", art: "die", pl: "-n", type: "noun" },
+        { de: "Schinken", cn: "火腿", art: "der", pl: "-", type: "noun" },
+        { de: "Zwiebel", cn: "洋蔥", art: "die", pl: "-n", type: "noun" },
+        { de: "Reis", cn: "米", art: "der", pl: "Sg.", type: "noun" },
+        { de: "Wein", cn: "葡萄酒", art: "der", pl: "-e", type: "noun" },
+        { de: "Apfelsaft", cn: "蘋果汁", art: "der", pl: "-e", type: "noun" },
+        { de: "beschreiben", cn: "描述", type: "other" },
+        { de: "billig", cn: "便宜", type: "other" },
+        { de: "teuer", cn: "貴", type: "other" },
+        { de: "kaputt", cn: "壞了", type: "other" },
+        { de: "klein", cn: "小", type: "other" },
+        { de: "neu", cn: "新", type: "other" },
+        { de: "blau", cn: "藍色", type: "other" },
+        { de: "rot", cn: "紅色", type: "other" },
+        { de: "grün", cn: "綠色", type: "other" },
+        { de: "essen", cn: "吃", type: "other" },
+        { de: "schauen", cn: "看", type: "other" },
+        { de: "kochen", cn: "煮飯", type: "other" }
+    ];
+
+    // --- Audio Synthesis (Web Audio API) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSound(type) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+            // High ping (Ding!)
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        } else if (type === 'wrong') {
+            // Low thud (Bubu)
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+    }
+
+    // --- Game Logic ---
+    let currentQIndex = 0;
+    let shuffledVocab = [];
+    let isAnswered = false;
+
+    function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    function initGame() {
+        shuffledVocab = shuffle([...vocabData]);
+        currentQIndex = 0;
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        isAnswered = false;
+        const item = shuffledVocab[currentQIndex];
+        const progress = (currentQIndex / shuffledVocab.length) * 100;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
+        
+        // Hide Bottom Sheet
+        const sheet = document.getElementById('bottom-sheet');
+        sheet.classList.remove('show', 'correct', 'wrong');
+
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = '';
+
+        // Randomly decide question type: 0 = Article, 1 = Meaning
+        // If not a noun, force Meaning type
+        let qType = Math.random() > 0.5 ? 0 : 1;
+        if (item.type !== 'noun') qType = 1;
+
+        if (qType === 0) {
+            renderArticleQuestion(item, gameArea);
+        } else {
+            renderMeaningQuestion(item, gameArea);
+        }
+    }
+
+    // --- Renderers ---
+    function renderArticleQuestion(item, container) {
+        const h2 = document.createElement('h2');
+        h2.textContent = "請選擇正確的詞性";
+        container.appendChild(h2);
+
+        const wordDisplay = document.createElement('div');
+        wordDisplay.className = 'word-display';
+        wordDisplay.innerHTML = `<span class="word-icon">📦</span> ${item.de}`;
+        container.appendChild(wordDisplay);
+
+        const grid = document.createElement('div');
+        grid.className = 'options-grid articles';
+        
+        ['der', 'die', 'das'].forEach(art => {
+            const btn = document.createElement('div');
+            btn.className = 'option-btn';
+            btn.textContent = art.charAt(0).toUpperCase() + art.slice(1);
+            btn.onclick = () => checkAnswer(art, item.art, btn, item);
+            grid.appendChild(btn);
+        });
+        container.appendChild(grid);
+    }
+
+    function renderMeaningQuestion(item, container) {
+        const h2 = document.createElement('h2');
+        h2.textContent = "選出正確的意思";
+        container.appendChild(h2);
+
+        const wordDisplay = document.createElement('div');
+        wordDisplay.className = 'word-display';
+        wordDisplay.innerHTML = `<span class="word-icon">🇩🇪</span> ${item.de}`;
+        container.appendChild(wordDisplay);
+
+        // Generate options (1 correct + 3 wrong)
+        let options = [item.cn];
+        const distractors = vocabData.filter(x => x.cn !== item.cn);
+        shuffle(distractors).slice(0, 3).forEach(d => options.push(d.cn));
+        options = shuffle(options);
+
+        const grid = document.createElement('div');
+        grid.className = 'options-grid choices';
+
+        options.forEach(opt => {
+            const btn = document.createElement('div');
+            btn.className = 'option-btn';
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(opt, item.cn, btn, item);
+            grid.appendChild(btn);
+        });
+        container.appendChild(grid);
+    }
+
+    // --- Interaction ---
+    function checkAnswer(userChoice, correctChoice, btnElement, item) {
+        if (isAnswered) return;
+        isAnswered = true;
+
+        const sheet = document.getElementById('bottom-sheet');
+        const feedbackMsg = document.getElementById('feedback-msg');
+        const feedbackDetail = document.getElementById('feedback-detail');
+        const feedbackIcon = document.getElementById('feedback-icon');
+
+        if (userChoice === correctChoice) {
+            // Correct
+            btnElement.classList.add('correct');
+            playSound('correct');
+            sheet.className = 'bottom-sheet show correct';
+            feedbackMsg.firstChild.textContent = "太棒了！"; // Update text node
+            feedbackIcon.textContent = "🎉";
+        } else {
+            // Wrong
+            btnElement.classList.add('wrong');
+            playSound('wrong');
+            sheet.className = 'bottom-sheet show wrong';
+            feedbackMsg.firstChild.textContent = "正確答案是：";
+            feedbackIcon.textContent = "💔";
+            
+            // Highlight the correct one (if visible)
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => {
+                if (b.textContent.toLowerCase() === correctChoice.toLowerCase() || 
+                    b.textContent === correctChoice) {
+                    b.classList.add('correct'); // Show user which was right
+                }
+            });
+        }
+
+        // Detail info (Full word + Plural)
+        let detailText = "";
+        if (item.type === 'noun') {
+            detailText = `${item.art.toUpperCase()} ${item.de} = ${item.cn}`;
+            if (item.pl) detailText += ` (複數: ${item.pl})`;
+        } else {
+            detailText = `${item.de} = ${item.cn}`;
+        }
+        feedbackDetail.textContent = detailText;
+    }
+
+    function nextQuestion() {
+        currentQIndex++;
+        if (currentQIndex >= shuffledVocab.length) {
+            // End of round
+            alert("恭喜！你完成了這一輪的單字特訓！");
+            initGame();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    // Start
+    initGame();
+
+</script>
+</body>
+</html>
