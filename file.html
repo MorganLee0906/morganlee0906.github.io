@@ -242,4 +242,353 @@
     const vocabData = [
          // --- PAGE 1: Der ---
         { de: "Gegenstand", cn: "物件", art: "der", type: "noun" },
-        { de: "Preis", cn: "
+        { de: "Preis", cn: "價格", art: "der", type: "noun" },
+        { de: "Bleistift", cn: "鉛筆", art: "der", type: "noun" },
+        { de: "Computer", cn: "電腦", art: "der", type: "noun" },
+        { de: "Drucker", cn: "印表機", art: "der", type: "noun" },
+        { de: "Fernseher", cn: "電視", art: "der", type: "noun" },
+        { de: "Herd", cn: "爐子", art: "der", type: "noun" },
+        { de: "Kuli", cn: "原子筆", art: "der", type: "noun" },
+        { de: "MP3-Player", cn: "MP3播放器", art: "der", type: "noun" },
+        { de: "Stuhl", cn: "椅子", art: "der", type: "noun" },
+        { de: "Tisch", cn: "桌子", art: "der", type: "noun" },
+        { de: "Wasserkocher", cn: "煮水器", art: "der", type: "noun" },
+        { de: "Käufer", cn: "買方", art: "der", type: "noun" },
+        { de: "Verkäufer", cn: "賣方", art: "der", type: "noun" },
+        { de: "Kinderwagen", cn: "嬰兒推車", art: "der", type: "noun" },
+        { de: "Kühlschrank", cn: "冰箱", art: "der", type: "noun" },
+        { de: "Staubsauger", cn: "吸塵器", art: "der", type: "noun" },
+        { de: "Kunde", cn: "顧客", art: "der", type: "noun" },
+        { de: "Schrank", cn: "櫃子", art: "der", type: "noun" },
+        { de: "Morgen", cn: "早晨", art: "der", type: "noun" },
+        { de: "Pizza-Service", cn: "披薩外送", art: "der", type: "noun" },
+        { de: "Sohn", cn: "兒子", art: "der", type: "noun" },
+        { de: "Tagesablauf", cn: "一天流程", art: "der", type: "noun" },
+        { de: "Unterricht", cn: "課程", art: "der", type: "noun" },
+        { de: "Wortakzent", cn: "重音", art: "der", type: "noun" },
+        { de: "Abend", cn: "晚上", art: "der", type: "noun" },
+        { de: "Mittag", cn: "中午", art: "der", type: "noun" },
+        
+        // --- PAGE 1: Die ---
+        { de: "Kleinanzeige", cn: "分類小廣告", art: "die", type: "noun" },
+        { de: "Lampe", cn: "燈", art: "die", type: "noun" },
+        { de: "Schere", cn: "剪刀", art: "die", type: "noun" },
+        { de: "Waschmaschine", cn: "洗衣機", art: "die", type: "noun" },
+        { de: "Wortliste", cn: "單字表", art: "die", type: "noun" },
+        { de: "Käuferin", cn: "女買方", art: "die", type: "noun" },
+        { de: "Verkäuferin", cn: "女賣方", art: "die", type: "noun" },
+        { de: "Tasche", cn: "包包", art: "die", type: "noun" },
+        { de: "Ziffer", cn: "數字", art: "die", type: "noun" },
+        { de: "Uhr", cn: "鐘/點鐘", art: "die", type: "noun" },
+        { de: "Arbeit", cn: "工作", art: "die", type: "noun" },
+        { de: "Kinderkrippe", cn: "托兒所", art: "die", type: "noun" },
+        { de: "Minute", cn: "分鐘", art: "die", type: "noun" },
+        { de: "Schule", cn: "學校", art: "die", type: "noun" },
+        { de: "Tageszeit", cn: "白天時間", art: "die", type: "noun" },
+        { de: "Tochter", cn: "女兒", art: "die", type: "noun" },
+        { de: "Zeitung", cn: "報紙", art: "die", type: "noun" },
+        { de: "Mittagspause", cn: "午休", art: "die", type: "noun" },
+        { de: "Bäckerei", cn: "麵包店", art: "die", type: "noun" },
+        { de: "Bibliothek", cn: "圖書館", art: "die", type: "noun" },
+
+        // --- PAGE 1: Das ---
+        { de: "Verkaufsgespräch", cn: "銷售話題", art: "das", type: "noun" },
+        { de: "Bügeleisen", cn: "熨斗", art: "das", type: "noun" },
+        { de: "Heft", cn: "冊子/筆記本", art: "das", type: "noun" },
+        { de: "Wörterbuch", cn: "字典", art: "das", type: "noun" },
+        { de: "Nomen", cn: "名詞", art: "das", type: "noun" },
+        { de: "Buch", cn: "書", art: "das", type: "noun" },
+        { de: "Fahrrad", cn: "腳踏車", art: "das", type: "noun" },
+        { de: "Haus", cn: "房子", art: "das", type: "noun" },
+        { de: "Jahr", cn: "年", art: "das", type: "noun" },
+        { de: "Kind", cn: "小孩", art: "das", type: "noun" },
+        { de: "Abendessen", cn: "晚餐", art: "das", type: "noun" },
+        { de: "Praktikum", cn: "實習", art: "das", type: "noun" },
+        { de: "Viertel", cn: "四分之一/一刻", art: "das", type: "noun" },
+        { de: "Brötchen", cn: "小麵包", art: "das", type: "noun" },
+        { de: "Kino", cn: "電影院", art: "das", type: "noun" },
+        { de: "Fernsehprogramm", cn: "電視節目", art: "das", type: "noun" },
+        { de: "Bier", cn: "啤酒", art: "das", pl: "-e", type: "noun" },
+        { de: "Brot", cn: "麵包", art: "das", pl: "-e", type: "noun" },
+        { de: "Fleisch", cn: "肉", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Gemüse", cn: "蔬菜", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Obst", cn: "水果", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Kochrezept", cn: "食譜", art: "das", pl: "-e", type: "noun" },
+        { de: "Ei", cn: "蛋", art: "das", pl: "-er", type: "noun" },
+
+        // --- Additional Nouns ---
+        { de: "Woche", cn: "週", art: "die", type: "noun" },
+        { de: "Banane", cn: "香蕉", art: "die", pl: "-n", type: "noun" },
+        { de: "Dienstag", cn: "星期二", art: "der", type: "noun" },
+        { de: "Ehepaar", cn: "夫妻", art: "das", pl: "-e", type: "noun" },
+        { de: "Wurst", cn: "香腸", art: "die", pl: "Würste", type: "noun" },
+        { de: "Kartoffel", cn: "馬鈴薯", art: "die", pl: "-n", type: "noun" },
+        { de: "Farbe", cn: "顏色", art: "die", pl: "-n", type: "noun" },
+        { de: "Flasche", cn: "瓶子", art: "die", pl: "-n", type: "noun" },
+        { de: "Salz", cn: "鹽", art: "das", pl: "Sg.", type: "noun" },
+        { de: "Nudel", cn: "麵", art: "die", pl: "-n", type: "noun" },
+        { de: "Pizza", cn: "披薩", art: "die", pl: "-s", type: "noun" },
+        { de: "Paprika", cn: "甜椒", art: "die", pl: "-s", type: "noun" },
+        { de: "Apfel", cn: "蘋果", art: "der", pl: "Äpfel", type: "noun" },
+        { de: "Familie", cn: "家庭", art: "die", pl: "-n", type: "noun" },
+        { de: "Käse", cn: "乳酪", art: "der", pl: "Sg.", type: "noun" },
+        { de: "Marmelade", cn: "果醬", art: "die", pl: "-n", type: "noun" },
+        { de: "Kuchen", cn: "蛋糕", art: "der", pl: "-", type: "noun" },
+        { de: "Salat", cn: "沙拉", art: "der", pl: "-e", type: "noun" },
+        { de: "Zitrone", cn: "檸檬", art: "die", pl: "-n", type: "noun" },
+        { de: "Schinken", cn: "火腿", art: "der", pl: "-", type: "noun" },
+        { de: "Zwiebel", cn: "洋蔥", art: "die", pl: "-n", type: "noun" },
+        { de: "Reis", cn: "米", art: "der", pl: "Sg.", type: "noun" },
+        { de: "Wein", cn: "葡萄酒", art: "der", pl: "-e", type: "noun" },
+        { de: "Apfelsaft", cn: "蘋果汁", art: "der", pl: "-e", type: "noun" },
+
+        // --- Other Words ---
+        { de: "beschreiben", cn: "描述", type: "other" },
+        { de: "billig", cn: "便宜", type: "other" },
+        { de: "teuer", cn: "貴", type: "other" },
+        { de: "kaputt", cn: "壞了", type: "other" },
+        { de: "klein", cn: "小", type: "other" },
+        { de: "neu", cn: "新", type: "other" },
+        { de: "blau", cn: "藍色", type: "other" },
+        { de: "rot", cn: "紅色", type: "other" },
+        { de: "grün", cn: "綠色", type: "other" },
+        { de: "essen", cn: "吃", type: "other" },
+        { de: "schauen", cn: "看", type: "other" },
+        { de: "kochen", cn: "煮飯", type: "other" }
+    ];
+
+    // --- Audio ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound(type) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        } else if (type === 'wrong') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+    }
+
+    // --- Game Logic ---
+    let shuffledVocab = [];
+    let currentIndex = 0;
+    let currentItem = null;
+    let userSelection = { art: null, cn: null }; // Tracks selection
+    let isChecked = false;
+
+    function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+    function initGame() {
+        shuffledVocab = shuffle([...vocabData]);
+        currentIndex = 0;
+        loadCard();
+    }
+
+    function loadCard() {
+        if (currentIndex >= shuffledVocab.length) {
+            alert("恭喜完成所有單字！");
+            initGame();
+            return;
+        }
+
+        currentItem = shuffledVocab[currentIndex];
+        isChecked = false;
+        userSelection = { art: null, cn: null };
+        
+        // Auto-fill article selection if it's not a noun (to skip that logic)
+        if (currentItem.type !== 'noun') {
+            userSelection.art = 'skip';
+        }
+
+        // Update UI
+        document.getElementById('progress-bar').style.width = `${(currentIndex / shuffledVocab.length) * 100}%`;
+        updateCheckButton();
+        resetBottomSheet();
+        renderGameArea();
+    }
+
+    function resetBottomSheet() {
+        const sheet = document.getElementById('bottom-sheet');
+        const feedback = document.getElementById('feedback-content');
+        const checkBtn = document.getElementById('check-btn');
+        
+        sheet.className = 'bottom-sheet';
+        feedback.style.display = 'none';
+        checkBtn.textContent = '檢查';
+        checkBtn.style.display = 'block';
+    }
+
+    function renderGameArea() {
+        const container = document.getElementById('game-area');
+        container.innerHTML = '';
+
+        // 1. Title & Word
+        const h2 = document.createElement('h2');
+        h2.textContent = currentItem.type === 'noun' ? "選擇正確的 冠詞 與 意思" : "選擇正確的意思";
+        container.appendChild(h2);
+
+        const wordBox = document.createElement('div');
+        wordBox.className = 'word-display';
+        wordBox.innerHTML = currentItem.de;
+        container.appendChild(wordBox);
+
+        // 2. Article Section (Only for Nouns)
+        if (currentItem.type === 'noun') {
+            const artLabel = document.createElement('div');
+            artLabel.className = 'section-label';
+            artLabel.textContent = "1. 詞性 (Artikel)";
+            container.appendChild(artLabel);
+
+            const artGrid = document.createElement('div');
+            artGrid.className = 'article-grid';
+            ['der', 'die', 'das'].forEach(art => {
+                const btn = document.createElement('div');
+                btn.className = 'option-btn art-opt';
+                btn.textContent = art.charAt(0).toUpperCase() + art.slice(1);
+                btn.dataset.value = art;
+                btn.onclick = () => selectArticle(art, btn);
+                artGrid.appendChild(btn);
+            });
+            container.appendChild(artGrid);
+        }
+
+        // 3. Meaning Section
+        const meanLabel = document.createElement('div');
+        meanLabel.className = 'section-label';
+        meanLabel.textContent = currentItem.type === 'noun' ? "2. 意思 (Bedeutung)" : "意思 (Bedeutung)";
+        container.appendChild(meanLabel);
+
+        // Generate choices (1 correct + 3 wrong)
+        let choices = [currentItem.cn];
+        const distractors = vocabData.filter(i => i.cn !== currentItem.cn);
+        shuffle(distractors).slice(0, 3).forEach(d => choices.push(d.cn));
+        choices = shuffle(choices);
+
+        const meanGrid = document.createElement('div');
+        meanGrid.className = 'meaning-grid';
+        choices.forEach(choice => {
+            const btn = document.createElement('div');
+            btn.className = 'option-btn mean-opt';
+            btn.textContent = choice;
+            btn.dataset.value = choice;
+            btn.onclick = () => selectMeaning(choice, btn);
+            meanGrid.appendChild(btn);
+        });
+        container.appendChild(meanGrid);
+    }
+
+    // --- Selection Logic ---
+    function selectArticle(val, btn) {
+        if (isChecked) return;
+        userSelection.art = val;
+        // Visual update
+        document.querySelectorAll('.art-opt').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        updateCheckButton();
+    }
+
+    function selectMeaning(val, btn) {
+        if (isChecked) return;
+        userSelection.cn = val;
+        // Visual update
+        document.querySelectorAll('.mean-opt').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        updateCheckButton();
+    }
+
+    function updateCheckButton() {
+        const btn = document.getElementById('check-btn');
+        // Enable only if both selected (or article skipped for non-nouns)
+        if (userSelection.art && userSelection.cn) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    }
+
+    // --- Validation Logic ---
+    function handleCheck() {
+        const btn = document.getElementById('check-btn');
+        
+        if (isChecked) {
+            // "Continue" mode -> Next card
+            currentIndex++;
+            loadCard();
+            return;
+        }
+
+        isChecked = true;
+        const sheet = document.getElementById('bottom-sheet');
+        const fbContent = document.getElementById('feedback-content');
+        const fbTitle = document.getElementById('feedback-title');
+        const fbDetail = document.getElementById('feedback-detail');
+        const fbIcon = document.getElementById('feedback-icon');
+
+        // Check Logic
+        const isArtCorrect = (currentItem.type !== 'noun') || (userSelection.art === currentItem.art);
+        const isMeanCorrect = (userSelection.cn === currentItem.cn);
+        const isAllCorrect = isArtCorrect && isMeanCorrect;
+
+        fbContent.style.display = 'flex';
+        btn.textContent = '繼續';
+
+        // Highlight Buttons
+        if (currentItem.type === 'noun') {
+            // Highlight Article buttons
+            document.querySelectorAll('.art-opt').forEach(b => {
+                if (b.dataset.value === currentItem.art) b.classList.add('correct-highlight'); // Show answer
+                if (b.classList.contains('selected') && !isArtCorrect) b.classList.add('wrong-highlight');
+            });
+        }
+        // Highlight Meaning buttons
+        document.querySelectorAll('.mean-opt').forEach(b => {
+            if (b.dataset.value === currentItem.cn) b.classList.add('correct-highlight');
+            if (b.classList.contains('selected') && !isMeanCorrect) b.classList.add('wrong-highlight');
+        });
+
+        // Bottom Sheet Feedback
+        if (isAllCorrect) {
+            playSound('correct');
+            sheet.className = 'bottom-sheet correct';
+            fbTitle.textContent = "太棒了！全對！";
+            fbIcon.textContent = "🎉";
+        } else {
+            playSound('wrong');
+            sheet.className = 'bottom-sheet wrong';
+            fbTitle.textContent = "再接再厲！";
+            fbIcon.textContent = "💔";
+        }
+
+        // Detail text
+        let fullText = "";
+        if (currentItem.type === 'noun') {
+            fullText = `${currentItem.art.toUpperCase()} ${currentItem.de} = ${currentItem.cn}`;
+            if (currentItem.pl) fullText += ` (複數: ${currentItem.pl})`;
+        } else {
+            fullText = `${currentItem.de} = ${currentItem.cn}`;
+        }
+        fbDetail.textContent = fullText;
+    }
+
+    // Start
+    initGame();
+
+</script>
+</body>
+</html>
